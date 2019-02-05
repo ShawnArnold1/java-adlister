@@ -1,9 +1,25 @@
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-public class HelloWorldServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) {
+@WebServlet(name="HelloWorldServlet", urlPatterns = "/hello-world")
+public class HelloWorldServlet extends HttpServlet
+{
+    int counter = 0;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        int age = Integer.parseInt(request.getParameter("age"));
+        String name = request.getParameter("name");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<h1> Hello " + name + "</h1>");
+        out.println("<h1> Hello " + name + " you are " + age + " years old!");
+        out.println("<h1> This page has been visited " + counter + " times.");
+        counter++;
 
     }
 }
