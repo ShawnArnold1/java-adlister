@@ -6,29 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%
-    if(request.getMethod().equalsIgnoreCase("post"))
-    {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        if(!username.isEmpty() && !password.isEmpty())
-        {
-            if (username.equals("admin") && password.equals("password")) {
-                response.sendRedirect("/profile.jsp");
-            }
-        }
-    }
-
-%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>
-            Login Page
-        </title>
+        <jsp:include page="partials/head.jsp"/>
     </head>
+        <jsp:include page="partials/navbar.jsp"/>
     <body>
-        <form action="login.jsp" method="POST">
+        <form action="/login" method="POST">
             User Name
             <br>
             <input type="text" name="username" id="username">
