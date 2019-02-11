@@ -1,10 +1,16 @@
-import java.sql.*;
-import com.mysql.cj.jdbc.Driver;
-public class DaoFactory {
+public class DaoFactory
+{
     private static Ads adsDao;
 
-    public static Ads getAdsDao() {
-        if (adsDao == null) {
+
+
+    public static Ads getAdsDao()
+    {
+        if (adsDao == null)
+        {
+
+            Config config = new Config();
+            adsDao = new MySQLAdsDao(config);
             adsDao = new ListAdsDao();
         }
         return adsDao;
