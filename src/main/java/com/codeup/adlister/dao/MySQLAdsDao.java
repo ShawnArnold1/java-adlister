@@ -18,25 +18,45 @@ public class MySQLAdsDao implements Ads {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
                 config.getUrl(),
-                config.getUser(),
+                config.getUsername(),
                 config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
         }
     }
-
     @Override
-    public List<Ad> all() {
-        Statement stmt = null;
+    public List<Ad> all()
+    {
+//    Statement stmt = null;
+        String sql = "SELECT * FROM ads";
+        PreparedStatement stmt;
         try {
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
+//      stmt = connection.createStatement();
+            stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
             return createAdsFromResults(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
     }
+//
+//
+//
+//
+//
+//
+//
+//
+//        Statement stmt = null;
+//        try {
+//            stmt = connection.createStatement();
+//            ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
+//            return createAdsFromResults(rs);
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error retrieving all ads.", e);
+//        }
+
 
     @Override
     public Long insert(Ad ad) {
